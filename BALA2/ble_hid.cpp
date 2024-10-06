@@ -48,10 +48,10 @@ static void notifyCallback(BLERemoteCharacteristic *pBLERemoteCharacteristic, ui
   if (x > 0) {
     Serial.printf("RIGHT %d\n", x);
     left = 0;
-    right = unit * y;
+    right = unit * x;
   } else if (x < 0) {
     Serial.printf("LEFT %d\n", x);
-    left = unit * y;
+    left = unit * x;
     right = 0;
   }
 
@@ -138,7 +138,7 @@ class MyAdvertisedDeviceCallbacks : public BLEAdvertisedDeviceCallbacks {
       myDevice = new BLEAdvertisedDevice(advertisedDevice);
       myDevices.push_back(myDevice);
       doConnect = true;
-      doScan = false;
+      doScan = true;
 
 
       Serial.print("BLE Device found !!!!");
@@ -165,11 +165,6 @@ void ble_task(void *param) {
     // If we are connected to a peer BLE Server, update the characteristic each time we are reached
     // with the current time since boot.
     if (connected) {
-      // String newValue = "Time since boot: " + String(millis()/500);
-      // Serial.println("Setting new characteristic value to \"" + newValue + "\"");
-
-      // // Set the characteristic's value to be the array of bytes that is actually a string.
-      // pRemoteCharacteristic->writeValue(newValue.c_str(), newValue.length());
     } else if (doScan) {
       BLEDevice::getScan()->start(0);  // this is just eample to start scan after disconnect, most likely there is better way to do it in arduino
     }
@@ -192,6 +187,22 @@ void ble_control_setup() {
   pBLEScan->setWindow(449);
   pBLEScan->setActiveScan(true);
   pBLEScan->start(30, false);
+  
+  M5.Lcd.fillRect(220, 0, 100, 60, TFT_BLACK); // 设置特定区域为黑色
+
+  M5.Lcd.setCursor(220, 0*18); M5.Lcd.print("Not Connected");
+  M5.Lcd.setCursor(230, 1*18); M5.Lcd.print("X :");
+  M5.Lcd.setCursor(230, 2*18); M5.Lcd.print("Y :");
 
   xTaskCreatePinnedToCore(ble_task, "bleTask", 8192, NULL, 10, NULL, 1);
+}
+
+void show_control_status() {
+    if (connected) {
+        M5.Lcd.setCursor(220, 0*18); M5.Lcd.print("Connected    ");
+        M5.Lcd.setCursor(272, 1*18); M5.Lcd.printf("%3d ", (int)left);
+        M5.Lcd.setCursor(272, 2*18); M5.Lcd.printf("%3d ", (int)right);
+    } else {
+      M5.Lcd.setCursor(220, 0*18); M5.Lcd.print("Not Connected");
+    }
 }
