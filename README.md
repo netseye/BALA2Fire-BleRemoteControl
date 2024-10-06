@@ -4,7 +4,7 @@
 ### IDE:
 - [Arduino IDE](https://www.arduino.cc/en/software)
 ### 硬件商品地址:
-- [M5Stack MiniJoyC](https://m5stack.com/products/minijoyc)
+- [M5Stack MiniJoyC](https://docs.m5stack.com/zh_CN/hat/MiniJoyC)
 - [M5Stack BALA2Fire](https://docs.m5stack.com/zh_CN/app/bala2fire)
 - [M5StickC PLUS2](https://docs.m5stack.com/zh_CN/core/M5StickC%20PLUS2)
 
