@@ -84,6 +84,7 @@ void loop() {
 
     if (millis() > next_show_time) {
         draw_waveform();
+        show_control_status();
         next_show_time = millis() + 10;
     }
 
