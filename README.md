@@ -20,7 +20,6 @@
 5. 打开M5Stack MiniJoyC，重启M5Stack BALA2Fire,自动链接成功
 6. 摇杆控制小车的前进、后退、左转、右转等动作
 7. 摇杆4个方向都有12个档位，可以根据实际情况调整
-```
 
 ### 存在问题:
 - 重连问题, 先按下M5StickC PLUS2的BtnA按钮，再重启M5Stack BALA2Fire
